@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light theme colors */
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --toggle-bg: #f0f0f0;
+            --toggle-icon: #555555;
+            --toggle-active: #4e54c8;
+        }
+
+        /* Dark theme colors */
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #f0f0f0;
+            --toggle-bg: #333333;
+            --toggle-icon: #dddddd;
+            --toggle-active: #8f94fb;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .toggle-btn {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--toggle-bg);
+            border-radius: 30px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--toggle-icon);
+            border-radius: 50%;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dark-mode .toggle-btn::after {
+            transform: translateX(30px);
+            background-color: var(--toggle-active);
+        }
+
+        .icon {
+            font-size: 20px;
+            color: var(--toggle-icon);
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .icon {
+            color: var(--toggle-active);
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="toggle-container">
+        <i class="fas fa-moon icon"></i>
+        <button class="toggle-btn" id="darkModeToggle"></button>
+        <i class="fas fa-sun icon"></i>
+    </div>
+    
+   
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('dark-mode');
+        }
+        
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save user preference
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>
