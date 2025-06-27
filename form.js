@@ -40,7 +40,7 @@ togglePasswordConfirm.addEventListener("click",() =>{
                 
     
                 if (name && email) {
-                window.location.href = "/Index.html"
+                window.location.href = "/index.html"
                 } else {
                     alert('Please fill out all fields');
                 }
